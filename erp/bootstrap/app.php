@@ -11,7 +11,12 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware): void {
-        //
+        $middleware->web(append: [
+            \App\Http\Middleware\ERPSubscriptionMiddleware::class,
+        ]);
+        $middleware->alias([
+            'erp.subscription' => \App\Http\Middleware\ERPSubscriptionMiddleware::class,
+        ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         //
